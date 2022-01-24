@@ -10,10 +10,12 @@ import os
 import re
 import struct
 from typing import Any, Dict, Generator, List, Optional, Tuple, Union
-from urllib import request, parse
+from urllib import parse, request
 
 from volatility3 import symbols
-from volatility3.framework import constants, interfaces, exceptions
+from volatility3.framework import constants, exceptions, interfaces
+from volatility3.framework.automagic import symbol_cache
+from volatility3.framework.configuration import requirements
 from volatility3.framework.configuration.requirements import SymbolTableRequirement
 from volatility3.framework.symbols import intermed
 from volatility3.framework.symbols.windows import pdbconv
@@ -74,9 +76,15 @@ class PDBUtility(interfaces.configuration.VersionableInterface):
 
         isf_path = None
         # Take the first result of search for the intermediate file
-        for value in intermed.IntermediateSymbolTable.file_symbol_url("windows", filter_string):
+        if not requirements.VersionRequirement.matches_required((1, 0, 0), symbol_cache.SqliteCache.version):
+            vollog.debug(f"Required version of SQLiteCache not found")
+            return None
+
+        value = symbol_cache.SqliteCache(constants.IDENTIFIERS_PATH).find_location(
+            symbol_cache.WindowsIdentifier.generate(pdb_name.strip('\x00'), guid.upper(), age), 'windows')
+
+        if value:
             isf_path = value
-            break
         else:
             # If none are found, attempt to download the pdb, convert it and try again
             cls.download_pdb_isf(context, guid.upper(), age, pdb_name, progress_callback)

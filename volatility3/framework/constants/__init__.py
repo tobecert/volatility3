@@ -9,7 +9,7 @@ volatility This includes default scanning block sizes, etc.
 import enum
 import os.path
 import sys
-from typing import Optional, Callable
+from typing import Callable, Optional
 
 import volatility3.framework.constants.linux
 import volatility3.framework.constants.windows
@@ -68,10 +68,13 @@ if sys.platform == 'windows':
 os.makedirs(CACHE_PATH, exist_ok = True)
 
 LINUX_BANNERS_PATH = os.path.join(CACHE_PATH, "linux_banners.cache")
-""""Default location to record information about available linux banners"""
+"""Default location to record information about available linux banners"""
 
 MAC_BANNERS_PATH = os.path.join(CACHE_PATH, "mac_banners.cache")
-""""Default location to record information about available mac banners"""
+"""Default location to record information about available mac banners"""
+
+IDENTIFIERS_PATH = os.path.join(CACHE_PATH, "identifiers.cache")
+"""Default location to record information about available identifiers"""
 
 BUG_URL = "https://github.com/volatilityfoundation/volatility3/issues"
 
