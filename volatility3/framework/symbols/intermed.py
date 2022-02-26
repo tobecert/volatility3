@@ -539,7 +539,8 @@ class Version3Format(Version2Format):
         if 'type' in symbol:
             symbol_type = self._interdict_to_template(symbol['type'])
 
-        self._symbol_cache[name] = interfaces.symbols.SymbolInterface(name = name, address = address, type = symbol_type)
+        self._symbol_cache[name] = interfaces.symbols.SymbolInterface(name = name, address = address,
+                                                                      type = symbol_type)
         return self._symbol_cache[name]
 
 
