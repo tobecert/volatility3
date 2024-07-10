@@ -23,3 +23,4 @@ leechcorepyc>=2.4.0
 # This is required for analyzing Linux samples compressed using AVMLs native
 # compression format.  It is not required for AVML's standard LiME compression.
 python-snappy==0.6.0
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
