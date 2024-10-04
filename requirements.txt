@@ -9,7 +9,7 @@ yara-python>=3.8.0
 
 # This is required for several plugins that perform malware analysis and disassemble code.
 # It can also improve accuracy of Windows 8 and later memory samples.
-capstone>=3.0.5
+capstone>=6.0.0a1
 
 # This is required by plugins that decrypt passwords, password hashes, etc.
 pycryptodome
